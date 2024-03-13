@@ -6,9 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "testui": "playwright test --ui",
-    "e2e": "playwright test --headed"
+    "test": "playwright test --headed",
+    "testui": "playwright test --ui"
   },
   "private": true,
   "dependencies": {
