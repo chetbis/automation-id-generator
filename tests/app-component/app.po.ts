@@ -8,17 +8,17 @@ export class AppPage {
    * @returns 
    */
   getNewTodoInputElement(page: Page) {
-    return page.getByTestId('test-app-add-new-item-input');
+    return page.getByTestId('add-new-item-input');
   }
 
   /**
    * Gets todo item by index
    * @param page
-   * @param index 
+   * @param index
    * @returns 
    */
   getAddedTodoItem(page: Page, index: number) {
-    return page.getByTestId(`test-app-todo-item-${index}`);
+    return page.getByTestId(`todo-item-${index}`);
   }
 
 
@@ -28,7 +28,7 @@ export class AppPage {
    * @returns 
    */
   getTodoAddItemBtn(page: Page) {
-    return page.getByTestId('test-app-add-new-item-btn');
+    return page.getByTestId('add-new-item-btn');
   }
 
 }

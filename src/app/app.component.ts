@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { IdDirective } from './id/id.directive';
-import { IdPipe } from './id/id.pipe';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgIf } from '@angular/common';
 import { FocusInputElementDirective } from './focus.directive';
@@ -9,7 +8,7 @@ import { Todo, TodoService } from './todo.service';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [IdDirective, IdPipe, ReactiveFormsModule, NgIf, FocusInputElementDirective],
+  imports: [IdDirective, ReactiveFormsModule, NgIf, FocusInputElementDirective],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
