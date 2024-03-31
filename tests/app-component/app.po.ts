@@ -8,7 +8,7 @@ export class AppPage {
    * @returns 
    */
   getNewTodoInputElement(page: Page) {
-    return page.getByTestId('add-new-item-input');
+    return page.getByTestId('todo-app-add-new-item-input');
   }
 
   /**
@@ -18,7 +18,7 @@ export class AppPage {
    * @returns 
    */
   getAddedTodoItem(page: Page, index: number) {
-    return page.getByTestId(`todo-item-${index}`);
+    return page.getByTestId(`todo-app-todo-item-${index}`);
   }
 
 
@@ -28,7 +28,7 @@ export class AppPage {
    * @returns 
    */
   getTodoAddItemBtn(page: Page) {
-    return page.getByTestId('add-new-item-btn');
+    return page.getByTestId('todo-app-add-new-item-btn');
   }
 
 }

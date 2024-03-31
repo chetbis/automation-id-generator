@@ -1,25 +1,46 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  forwardRef,
+  inject,
+  reflectComponentType,
+} from '@angular/core';
 import { IdDirective } from './id/id.directive';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgIf } from '@angular/common';
 import { FocusInputElementDirective } from './focus.directive';
 import { Todo, TodoService } from './todo.service';
+import { GetComponentSelector, INTERFACE_TOKEN } from './id/interface-token';
 
 @Component({
-  selector: 'app-root',
+  selector: 'todo-app',
   standalone: true,
   imports: [IdDirective, ReactiveFormsModule, NgIf, FocusInputElementDirective],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
+  providers: [
+    {
+      provide: INTERFACE_TOKEN,
+      useExisting: forwardRef(() => AppComponent),
+    },
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {
-  readonly taskInput = new FormControl<string>('', { validators: [Validators.required] });
-  readonly editInput = new FormControl<string>('', { validators: [Validators.required]});
+export class AppComponent implements GetComponentSelector {
+  readonly taskInput = new FormControl<string>('', {
+    validators: [Validators.required],
+  });
+  readonly editInput = new FormControl<string>('', {
+    validators: [Validators.required],
+  });
   readonly toggleAll = new FormControl<boolean>(false);
 
   private readonly todoService = inject(TodoService);
   readonly todos = this.todoService.todos;
+
+  getSelector(): string {
+    return reflectComponentType(AppComponent)?.selector ?? '';
+  }
 
   /**
    * Adds a task
@@ -33,13 +54,12 @@ export class AppComponent {
   /**
    * Updates todo items
    * @param taskId
-   * @returns 
+   * @returns
    */
   updateTodo(taskId: string) {
     if (this.editInput.invalid) return;
     this.todoService.updateTodo(taskId, this.editInput.value ?? '');
   }
-
 
   /**
    * Removes editor
@@ -47,7 +67,6 @@ export class AppComponent {
   removeEditor() {
     this.todoService.removeEditor();
   }
-
 
   /**
    * Removes all the completed tasks
@@ -63,10 +82,9 @@ export class AppComponent {
     this.todoService.toggleCompleteAll(this.toggleAll?.value ?? false);
   }
 
-
   /**
    * Sets editing state of a task
-   * @param id 
+   * @param id
    */
   editTodoItem(task: Todo) {
     this.editInput.setValue(task.value);
